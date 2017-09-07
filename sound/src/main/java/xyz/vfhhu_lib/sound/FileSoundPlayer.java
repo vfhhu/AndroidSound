@@ -102,9 +102,12 @@ public class FileSoundPlayer {
                             while((nRead = inputs.read(buffer)) != -1 && isPlaying) {
                                 player.write( buffer,nRead);
                                 total += nRead;
-                                if(play_length>0 && total>=play_length){break;}
+                                if(play_length>0 && total>=play_length){
+                                    if(l!=null)l.onCompletion();
+                                    break;
+                                }
                             }
-                            if(l!=null)l.onCompletion();
+
                         } catch (IOException e) {
                             if(l!=null)l.onError(e);
                             e.printStackTrace();
